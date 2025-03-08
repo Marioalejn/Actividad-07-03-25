@@ -77,27 +77,31 @@
 	    }
 	}
 	
-	void guardar_saldo(float *cantidad, int n){
+	void guardar_saldo() {
         FILE *archivo = fopen("saldo.txt", "w");
-        if(archivo){
-            fprintf(archivo, "%.2f", usuario[0].cantidad[n]);
+        if (archivo) {
+            fprintf(archivo, "%.2f %.2f %.2f", usuario[0].cantidad[0], usuario[0].cantidad[1], usuario[0].cantidad[2]);
             fclose(archivo);
         } 
-        else{
+        else {
             printf("Error al guardar el saldo.\n");
         }
     }
-    
-    void cargar_saldo(float *cantidad, int n){
+
+    void cargar_saldo() {
         FILE *archivo = fopen("saldo.txt", "r");
-        if(archivo){ //archivo se usa referenciando a que sí lo abre
-            if(fscanf(archivo, "%f", cantidad) != 1){ // usé != 1 para por si no se leyó ni un flotante
-                *cantidad = 1000;
+        if (archivo) {
+            if (fscanf(archivo, "%f %f %f", &usuario[0].cantidad[0], &usuario[0].cantidad[1], &usuario[0].cantidad[2]) != 3) {
+                usuario[0].cantidad[0] = 1000;
+                usuario[0].cantidad[1] = 1000;
+                usuario[0].cantidad[2] = 1000;
             }
             fclose(archivo);
         } 
-        else{ //Si el archivo ni siquiera existe
-            *cantidad = 1000;
+        else {
+            usuario[0].cantidad[0] = 1000;
+            usuario[0].cantidad[1] = 1000;
+            usuario[0].cantidad[2] = 1000;
         }
     }
     
