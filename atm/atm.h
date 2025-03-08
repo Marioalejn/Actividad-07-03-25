@@ -3,20 +3,20 @@
     struct user{
 	    float cantidad[3]; //cantidad es el dinero inicial que se estará manipulando
 	    char nip[5];
-	}usuario[1]; //Solo 1 porque tenemos solo 1 usuario por el momento
+	}usuario[3]; //Solo 1 porque tenemos solo 1 usuario por el momento
 	    
-    void consultar_saldo(float *cantidad, int *verificador,int n){ //Se pasa *verificador para que solo lo tenga que hacer una vez
+    void consultar_saldo(float *cantidad, int *verificador,int n, int u){ //Se pasa *verificador para que solo lo tenga que hacer una vez
         if(*verificador == 0){
-            verificacion_nip(usuario[0].nip,verificador); //Como tenemos *verificador, usamos " " en vez de "&" para mandar la dirección de la variable, no del puntero
+            verificacion_nip(usuario[u].nip,verificador); //Como tenemos *verificador, usamos " " en vez de "&" para mandar la dirección de la variable, no del puntero
         }
         if(*verificador == 1){
         printf("Su saldo es: %.2f\n", *cantidad);
         }
     }
     
-	void depositar(float *cantidad, int *verificador, int n){
+	void depositar(float *cantidad, int *verificador, int n, int u){
 	    if(*verificador == 0){
-            verificacion_nip(usuario[0].nip,verificador);
+            verificacion_nip(usuario[u].nip,verificador);
         }
 
         if(*verificador == 1){
@@ -33,9 +33,9 @@
         }
 	}
 	
-	void retirar(float *cantidad, int *verificador, int n){
+	void retirar(float *cantidad, int *verificador, int n, int u){
 	    if(*verificador == 0){
-            verificacion_nip(usuario[0].nip,verificador);
+            verificacion_nip(usuario[u].nip,verificador);
         }
         
         if(*verificador == 1){
@@ -43,10 +43,10 @@
     	    printf("Ingresa la cantidad que quieres retirar: ");
     	    scanf("%f", &retiro);
     	    if(retiro <= *cantidad){
-    	    	printf("%f", *cantidad);
+    	    	//printf("%f", *cantidad);
     	        *cantidad -= retiro;
     	        printf("Retiro realizado con exito.\n");
-    	        printf("%f", *cantidad);
+    	        //printf("%f\n", *cantidad);
     	    }
     	    else{
     	        printf("Vuelve a intentarlo con una cantidad menor o igual a tu salario (%.2f)\n", usuario[0].cantidad[n]);
@@ -54,7 +54,7 @@
         }
 	}
 	
-	void verificacion_nip(char nip[5], int *verificador){
+	void verificacion_nip(char nip[5], int *verificador, int u){
 	    int contador_nip = 3; //Veces que va a verificar al NIP
 	    char nip2[5];
 	    
@@ -63,7 +63,7 @@
     	    scanf("%4s", nip2); //A los arreglos no se les pone & en scanf
     	    while (getchar() != '\n');
     	    
-    	    if(strcmp(usuario[0].nip, nip2) == 0){
+    	    if(strcmp(nip, nip2) == 0){
     	        *verificador = 1;
     	    }
     	    else{
@@ -77,11 +77,15 @@
 	    }
 	}
 	
-	void guardar_saldo() {
+	void guardar_saldo(int u) {
+	    int i;
         FILE *archivo = fopen("saldo.txt", "w");
         if (archivo) {
-            fprintf(archivo, "%.2f %.2f %.2f", usuario[0].cantidad[0], usuario[0].cantidad[1], usuario[0].cantidad[2]);
+            for(i=0;i<3;i++){
+                fprintf(archivo, "%.2f %.2f %.2f ", usuario[i].cantidad[0], usuario[i].cantidad[1], usuario[i].cantidad[2]);
+            }
             fclose(archivo);
+            
         } 
         else {
             printf("Error al guardar el saldo.\n");
@@ -91,17 +95,29 @@
     void cargar_saldo() {
         FILE *archivo = fopen("saldo.txt", "r");
         if (archivo) {
-            if (fscanf(archivo, "%f %f %f", &usuario[0].cantidad[0], &usuario[0].cantidad[1], &usuario[0].cantidad[2]) != 3) {
+            if (fscanf(archivo, "%f %f %f %f %f %f %f %f %f", &usuario[0].cantidad[0], &usuario[0].cantidad[1], &usuario[0].cantidad[2], &usuario[1].cantidad[0], &usuario[1].cantidad[1], &usuario[1].cantidad[2], &usuario[2].cantidad[0], &usuario[2].cantidad[1], &usuario[2].cantidad[2]) != 9) {
                 usuario[0].cantidad[0] = 1000;
                 usuario[0].cantidad[1] = 1000;
-                usuario[0].cantidad[2] = 1000;
+                usuario[0].cantidad[2] = 900;
+                usuario[1].cantidad[0] = 900;
+                usuario[1].cantidad[1] = 900;
+                usuario[1].cantidad[2] = 900;
+                usuario[2].cantidad[0] = 800;
+                usuario[2].cantidad[1] = 800;
+                usuario[2].cantidad[2] = 800;
             }
             fclose(archivo);
         } 
         else {
             usuario[0].cantidad[0] = 1000;
             usuario[0].cantidad[1] = 1000;
-            usuario[0].cantidad[2] = 1000;
+            usuario[0].cantidad[2] = 900;
+            usuario[1].cantidad[0] = 900;
+            usuario[1].cantidad[1] = 900;
+            usuario[1].cantidad[2] = 900;
+            usuario[2].cantidad[0] = 800;
+            usuario[2].cantidad[1] = 800;
+            usuario[2].cantidad[2] = 800;
         }
     }
     
