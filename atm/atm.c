@@ -1,18 +1,22 @@
 #include "atm.h"
 
 int main(){
-	int n;
+	int n,u;
 	limpiar();
+	printf("Ingresa el usuario que quieres usar (1-3): ");//u de usuario
+	scanf("%i", &u);
+	u--;
+	while (getchar() != '\n');
 	printf("Ingresa la cuenta que quieres usar (1-3): ");
 	scanf("%i", &n);
 	n--; //para que se pueda usar en los arreglos 
 	
 	int opcion, verificador = 0; //Verificador es para el NIP, si es correcto se cambia a 1.
-	cargar_saldo(&usuario[0].cantidad[n],n); //función que toma del txt para cambiar el valor de cantidad
+	cargar_saldo(&usuario[u].cantidad[n], n); //función que toma del txt para cambiar el valor de cantidad
 	
 	
 	printf("Ingresa tu NIP (solo se leerán 4 caracteres): ");
-	scanf("%4s", usuario[0].nip);
+	scanf("%4s", usuario[u].nip);
 	while (getchar() != '\n'); // Limpiar el búfer
 
 
@@ -27,17 +31,18 @@ int main(){
 		
 		switch (opcion){
 		case 1 : 
-			 consultar_saldo(&usuario[0].cantidad[n], &verificador,n);
+			 consultar_saldo(&usuario[u].cantidad[n], &verificador, n, u);
 			 break;
 		case 2: 
-			depositar(&usuario[0].cantidad[n], &verificador,n);
+			depositar(&usuario[u].cantidad[n], &verificador, n, u);
 			break;
 		case 3: 
-			retirar(&usuario[0].cantidad[n], &verificador,n);
+			retirar(&usuario[u].cantidad[n], &verificador, n, u);
 			break;
 		case 4:
 		    printf("Saliendo del programa... ¡Gracias por su confianza!\n");
-		    guardar_saldo(&usuario[0].cantidad[n],n); //se guarde la cantidad en el txt al cerrar el archivo
+		    //guardar_saldo(&usuario[u].cantidad[n],n); //se guarde la cantidad en el txt al cerrar el archivo
+		    guardar_saldo(u);
 			break;
 		default:
 			printf("Ingresa una opcion adecuada...\n");
