@@ -2,6 +2,7 @@
 
 int main(){
 	int n;
+	limpiar();
 	printf("Ingresa la cuenta que quieres usar (1-3): ");
 	scanf("%i", &n);
 	n--; //para que se pueda usar en los arreglos 
@@ -47,3 +48,4 @@ int main(){
 		
 	return 0;
 }
+
