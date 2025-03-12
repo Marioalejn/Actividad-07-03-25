@@ -1,33 +1,30 @@
 #include "atm.h"
 
 int main(){
-	int n,u;
+	int n = 1,u = 1,opcion, verificador = 0; //Verificador es para el NIP, si es correcto se cambia a 1.;
 	limpiar();
-	printf("Ingresa el usuario que quieres usar (1-3): ");//u de usuario
-	scanf("%i", &u);
-	u--;
-	while (getchar() != '\n');
-	printf("Ingresa la cuenta que quieres usar (1-3): ");
-	scanf("%i", &n);
-	n--; //para que se pueda usar en los arreglos 
-	
-	int opcion, verificador = 0; //Verificador es para el NIP, si es correcto se cambia a 1.
-	cargar_saldo(&usuario[u].cantidad[n], n); //función que toma del txt para cambiar el valor de cantidad
+	usuario_seleccion(&u);
+	cuenta_seleccion(&n);
+	cargar_saldo(); //función que toma del txt para cambiar el valor de cantidad
+	nip_seleccion(usuario[u].nip);
 	
 	
-	printf("Ingresa tu NIP (solo se leerán 4 caracteres): ");
-	scanf("%4s", usuario[u].nip);
-	while (getchar() != '\n'); // Limpiar el búfer
-
-
 
 	do{
-		printf("\n---Cajero automatico---\n");
-		printf("1) Consultar saldo.\n");
-		printf("2) Depositar dinero.\n");
-		printf("3) Retirar dinero.\n");
-		printf("4) Salir del programa.\n");
+		printf("\n");
+        printf("=================================\n");
+        printf("|   \033[1;34m Usuario: %i\033[0m  \033[1;37m│\033[0m  \033[1;36mCuenta: %i\033[0m  |\n", u+1, n+1);
+        printf("=================================\n");
+        printf("|     \033[1;32m  CAJERO AUTOMÁTICO \033[0m     |\n");
+        printf("=================================\n");
+        printf("|  [1]  Consultar saldo        |\n");
+        printf("|  [2]  Depositar dinero       |\n");
+        printf("|  [3]  Retirar dinero         |\n");
+        printf("|  [4]  Salir                  |\n");
+        printf("=================================\n");
+        printf("Seleccione una opción: ");
 		scanf("%d", &opcion);
+		limpiar();
 		
 		switch (opcion){
 		case 1 : 
