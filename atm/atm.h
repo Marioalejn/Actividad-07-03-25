@@ -5,6 +5,8 @@
     struct user{
 	    float cantidad[3]; //cantidad es el dinero inicial que se estará manipulando
 	    char nip[5];
+        int NoCliente;
+        char nombre[40];
 	}usuario[3]; //Solo 1 porque tenemos solo 1 usuario por el momento
 
     void limpiar() {
@@ -164,4 +166,16 @@
             usuario[2].cantidad[1] = 800;
             usuario[2].cantidad[2] = 800;
         }
+    }
+    
+    void llenar_datos() {
+        // Usuarios
+        strcpy(usuario[0].nombre, "Guadalupe sin_apellido");
+        usuario[0].NoCliente = 1;
+ 
+        strcpy(usuario[1].nombre, "Jose torres");
+        usuario[1].NoCliente = 2;
+
+        strcpy(usuario[2].nombre, "Juan Martinez");
+        usuario[2].NoCliente = 3;
     }
