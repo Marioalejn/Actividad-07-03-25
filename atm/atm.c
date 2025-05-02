@@ -1,7 +1,8 @@
-#include "atm.h"
+#include "atm1.h"
 
 int main(){
 	int n = 1,u = 1,opcion, verificador = 0; //Verificador es para el NIP, si es correcto se cambia a 1.;
+	llenar_datos();
 	limpiar();
 	usuario_seleccion(&u);
 	cuenta_seleccion(&n);
